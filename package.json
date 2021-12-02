@@ -8,11 +8,22 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.6.0",
+    "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.1.1",
+    "@mui/material": "^5.1.1",
+    "@octokit/core": "^3.5.1",
+    "@octokit/types": "^6.34.0",
+    "lodash.debounce": "^4.0.8",
     "next": "12.0.4",
+    "octokit": "^1.7.0",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-query": "^3.33.4",
+    "recharts": "^2.1.6"
   },
   "devDependencies": {
+    "@types/lodash.debounce": "^4.0.6",
     "@types/node": "16.11.9",
     "@types/react": "17.0.36",
     "eslint": "7",

@@ -1,0 +1,1 @@
+export const MAX_QUERY_RESULT_ITEMS = 1000;
