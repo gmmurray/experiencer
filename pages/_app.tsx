@@ -7,8 +7,9 @@ import { theme } from '../config/muiTheme';
 import { QueryClientProvider } from 'react-query';
 import { queryClient } from '../config/queryClient';
 import Layout from '../components/layout/Layout';
+import { SessionProvider } from 'next-auth/react';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     return (
         <>
             <Head>
@@ -18,14 +19,16 @@ function MyApp({ Component, pageProps }: AppProps) {
                     content="initial-scale=1, width=device-width"
                 />
             </Head>
-            <ThemeProvider theme={theme}>
-                <QueryClientProvider client={queryClient}>
-                    <CssBaseline />
-                    <Layout>
-                        <Component {...pageProps} />
-                    </Layout>
-                </QueryClientProvider>
-            </ThemeProvider>
+            <SessionProvider session={session}>
+                <ThemeProvider theme={theme}>
+                    <QueryClientProvider client={queryClient}>
+                        <CssBaseline />
+                        <Layout>
+                            <Component {...pageProps} />
+                        </Layout>
+                    </QueryClientProvider>
+                </ThemeProvider>
+            </SessionProvider>
         </>
     );
 }

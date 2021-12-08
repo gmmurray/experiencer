@@ -1,6 +1,7 @@
 import {
     AppBar,
     Breadcrumbs,
+    Button,
     Container,
     Link,
     Toolbar,
@@ -10,16 +11,28 @@ import { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import { FC, Fragment, useEffect, useState } from 'react';
 import { RouteMapRoute, routeMap } from '../../config/routes';
+import { useSession, signIn, signOut } from 'next-auth/react';
+import CenteredCircularProgress from '../shared/CenteredCircularProgress';
 
 const Layout: FC = ({ children }) => {
     const { pathname } = useRouter();
+    const { data: session, status } = useSession();
     const [currentRoute, setCurrentRoute] = useState<RouteMapRoute>(
         routeMap.default,
     );
+
     useEffect(() => {
         const route = routeMap[pathname] ?? routeMap.default;
         setCurrentRoute(route);
     }, [pathname]);
+
+    const renderChildren = () => {
+        if (status === 'loading') {
+            return <CenteredCircularProgress minHeight="calc(100vh - 64px)" />;
+        }
+        return children;
+    };
+
     return (
         <Fragment>
             <AppBar position="static">
@@ -48,10 +61,28 @@ const Layout: FC = ({ children }) => {
                                 </Typography>
                             </Breadcrumbs>
                         )}
+                        {!session && (
+                            <Button
+                                onClick={() => signIn()}
+                                color="inherit"
+                                sx={{ ml: 'auto' }}
+                            >
+                                login
+                            </Button>
+                        )}
+                        {session && (
+                            <Button
+                                onClick={() => signOut()}
+                                color="inherit"
+                                sx={{ ml: 'auto' }}
+                            >
+                                logout
+                            </Button>
+                        )}
                     </Toolbar>
                 </Container>
             </AppBar>
-            {children}
+            {renderChildren()}
         </Fragment>
     );
 };
