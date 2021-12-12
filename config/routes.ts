@@ -36,6 +36,15 @@ export const routeMap: RouteMap = {
             },
         ],
     },
+    ['/users/[userId]']: {
+        title: 'users',
+        breadcrumbs: [
+            {
+                title: 'home',
+                pathname: '/',
+            },
+        ],
+    },
     default: { title: 'experiencer', isDefault: true },
 };
 

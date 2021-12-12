@@ -39,10 +39,6 @@ const nextAuth = NextAuth({
     },
     callbacks: {
         // @ts-ignore
-        async redirect(url, baseUrl) {
-            return '/';
-        },
-        // @ts-ignore
         session: async params => {
             const { session, token } = params;
             if (session && session.user && token && token.sub) {
@@ -62,7 +58,7 @@ const nextAuth = NextAuth({
         },
     },
     theme: {
-        logo: `${process.env.BASE_URL}favicon.ico`,
+        logo: `${process.env.NEXT_PUBLIC_BASE_URL}favicon.ico`,
         colorScheme: 'dark',
     },
 });

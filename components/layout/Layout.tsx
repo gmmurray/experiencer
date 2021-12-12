@@ -45,16 +45,24 @@ const Layout: FC = ({ children }) => {
                         ) : (
                             <Breadcrumbs>
                                 {(currentRoute.breadcrumbs ?? []).map(r => (
-                                    <Link
+                                    <NextLink
                                         key={r.pathname}
-                                        component={NextLink}
                                         href={r.pathname}
                                         passHref
-                                        color="inherit"
-                                        underline="hover"
                                     >
-                                        {r.title}
-                                    </Link>
+                                        <Link color="inherit" underline="hover">
+                                            {r.title}
+                                        </Link>
+                                    </NextLink>
+                                    // <Link
+                                    //     key={r.pathname}
+                                    //     component={NextLink}
+                                    //     href={r.pathname}
+                                    //     color="inherit"
+                                    //     underline="hover"
+                                    // >
+                                    //     {r.title}
+                                    // </Link>
                                 ))}
                                 <Typography color="text.primary">
                                     {currentRoute.title}

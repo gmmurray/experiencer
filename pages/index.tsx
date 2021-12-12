@@ -29,7 +29,11 @@ const Home: NextPage = () => {
                                 </NextLink>
                             </li>
                             <li>
-                                <NextLink href="" passHref>
+                                <NextLink
+                                    // @ts-ignore
+                                    href={`/users/${session.user.providerAccountId}`}
+                                    passHref
+                                >
                                     <Link>my experiencer profile</Link>
                                 </NextLink>
                             </li>

@@ -8,6 +8,7 @@ import { QueryClientProvider } from 'react-query';
 import { queryClient } from '../config/queryClient';
 import Layout from '../components/layout/Layout';
 import { SessionProvider } from 'next-auth/react';
+import { SnackbarWrapper } from '../config/notistack';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     return (
@@ -21,12 +22,14 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
             </Head>
             <SessionProvider session={session}>
                 <ThemeProvider theme={theme}>
-                    <QueryClientProvider client={queryClient}>
-                        <CssBaseline />
-                        <Layout>
-                            <Component {...pageProps} />
-                        </Layout>
-                    </QueryClientProvider>
+                    <SnackbarWrapper>
+                        <QueryClientProvider client={queryClient}>
+                            <CssBaseline />
+                            <Layout>
+                                <Component {...pageProps} />
+                            </Layout>
+                        </QueryClientProvider>
+                    </SnackbarWrapper>
                 </ThemeProvider>
             </SessionProvider>
         </>
