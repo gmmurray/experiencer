@@ -85,9 +85,15 @@ const ViewUserTabs: FC<ViewUserTabsProps> = ({ settings, isCurrentUser }) => {
     });
 
     useEffect(() => {
-        if (query && query.tab) setCurrentTab(resolvedQueryTab ?? '0');
-        else push({ query: { ...query, tab: currentTab } });
-    }, [currentTab, push, query, resolvedQueryTab]);
+        if (
+            query &&
+            query.tab &&
+            visibleTabs.some(tab => tab.value.toString() === resolvedQueryTab)
+        ) {
+            console.log('using resolved query tab');
+            setCurrentTab(resolvedQueryTab ?? '0');
+        } else push({ query: { ...query, tab: currentTab } });
+    }, [currentTab, push, query, resolvedQueryTab, visibleTabs]);
 
     useEffect(() => {
         if (!visibleTabs.some(tab => tab.value.toString() === currentTab))

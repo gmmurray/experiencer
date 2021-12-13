@@ -1,14 +1,17 @@
-import { ReasonPhrases } from 'http-status-codes';
+import { getReasonPhrase, ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { getToken } from 'next-auth/jwt';
 import {
     RequestMethodType,
     RequestMethods,
 } from '../constants/httpRequestMethods';
 
+const JWT_SECRET = process.env.JWT_SECRET ?? '';
+
 export type RequestMethodHandler = (
     req: NextApiRequest,
     res: NextApiResponse,
-) => Promise<void>;
+) => Promise<any>;
 
 type RootHandler = (req: NextApiRequest, res: NextApiResponse) => Promise<void>;
 
@@ -37,5 +40,40 @@ export const createRootHandler: CreateRootHandlerType =
             }
             default:
                 throw new Error(ReasonPhrases.NOT_IMPLEMENTED);
+        }
+    };
+
+export type CreateMethodHandlerParams = {
+    callback: RequestMethodHandler;
+    requireToken: boolean;
+    requiredUserId?: string;
+};
+
+type CreateMethodHandlerType = (
+    params: CreateMethodHandlerParams,
+) => RequestMethodHandler;
+export const createMethodHandler: CreateMethodHandlerType =
+    ({ callback, requireToken, requiredUserId }) =>
+    async (req, res) => {
+        try {
+            const token = await getToken({ req, secret: JWT_SECRET });
+
+            const isAuthenticated = requireToken
+                ? requireToken && !!token
+                : true;
+
+            const isAuthorized = requiredUserId
+                ? requiredUserId && token?.sub === requiredUserId
+                : true;
+
+            if (isAuthenticated && isAuthorized) {
+                await callback(req, res);
+            } else {
+                res.status(StatusCodes.UNAUTHORIZED).json(null);
+            }
+        } catch (error) {
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                error: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR),
+            });
         }
     };
