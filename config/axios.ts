@@ -1,5 +1,6 @@
-import axios from 'axios';
 import { StatusCodes } from 'http-status-codes';
+import axios from 'axios';
+
 const axiosClient = axios.create();
 
 axiosClient.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_URL;

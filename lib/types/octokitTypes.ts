@@ -2,6 +2,7 @@ import {
     GetResponseDataTypeFromEndpointMethod,
     GetResponseTypeFromEndpointMethod,
 } from '@octokit/types';
+
 import { octokitClient } from '../../config/octokit';
 
 type UserSearchType = typeof octokitClient.rest.search.users;

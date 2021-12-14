@@ -1,7 +1,7 @@
-import { useQuery } from 'react-query';
-import { octokitClient } from '../../config/octokit';
-import { UserProfileResponseDataType } from '../types/octokitTypes';
 import { PagingState } from '../types/pagingState';
+import { UserProfileResponseDataType } from '../types/octokitTypes';
+import { octokitClient } from '../../config/octokit';
+import { useQuery } from 'react-query';
 
 export const githubQueryKeys = {
     all: 'github' as const,

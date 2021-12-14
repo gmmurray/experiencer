@@ -1,16 +1,17 @@
-import { useSnackbar } from 'notistack';
 import { FC, useCallback } from 'react';
 import {
     showErrorSnackbar,
     showSuccessSnackbar,
 } from '../../../config/notistack';
-import { UserPageSettings } from '../../../entities/UserPageSettings';
-import UserPageSettingsForm from '../../../forms/UserPageSettingsForm';
 import {
     useGetUserPageSettings,
     useUpdateUserPageSettings,
 } from '../../../lib/queries/userPageSettings';
+
+import { UserPageSettings } from '../../../entities/UserPageSettings';
+import UserPageSettingsForm from '../../../forms/UserPageSettingsForm';
 import { UserTabComponent } from './ViewUserTabs';
+import { useSnackbar } from 'notistack';
 
 const UserPageSettingsTab: FC<UserTabComponent> = ({ userId }) => {
     const { enqueueSnackbar } = useSnackbar();

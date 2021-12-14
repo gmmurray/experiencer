@@ -1,9 +1,10 @@
-import { Container, Paper, TextField, Typography } from '@mui/material';
 import { ChangeEvent, useCallback, useState } from 'react';
-import { useSearchGithubUsers } from '../../lib/queries/github';
+import { Container, Paper, TextField, Typography } from '@mui/material';
 import { DEFAULT_PAGING_STATE, PagingState } from '../../lib/types/pagingState';
-import { useDebouncedSearch } from '../../util/useDebouncedSearch';
+
 import GithubUserList from '../../components/github/GithubUserList';
+import { useDebouncedSearch } from '../../util/useDebouncedSearch';
+import { useSearchGithubUsers } from '../../lib/queries/github';
 
 const Github = () => {
     const [searchValue, setSearchValue] = useState<string | null>(null);

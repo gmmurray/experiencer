@@ -1,10 +1,11 @@
-import { getReasonPhrase, ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getToken } from 'next-auth/jwt';
+import { ReasonPhrases, StatusCodes, getReasonPhrase } from 'http-status-codes';
 import {
     RequestMethodType,
     RequestMethods,
 } from '../constants/httpRequestMethods';
+
+import { getToken } from 'next-auth/jwt';
 
 const JWT_SECRET = process.env.JWT_SECRET ?? '';
 

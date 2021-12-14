@@ -1,4 +1,5 @@
 import { CircularProgress, Grid } from '@mui/material';
+
 import { FC } from 'react';
 
 type CenteredCircularProgressProps = {

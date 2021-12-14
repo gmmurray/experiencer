@@ -7,12 +7,13 @@ import {
     Toolbar,
     Typography,
 } from '@mui/material';
-import { useRouter } from 'next/router';
-import NextLink from 'next/link';
 import { FC, Fragment, useEffect, useState } from 'react';
 import { RouteMapRoute, routeMap } from '../../config/routes';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
+
 import CenteredCircularProgress from '../shared/CenteredCircularProgress';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 
 const Layout: FC = ({ children }) => {
     const { pathname } = useRouter();

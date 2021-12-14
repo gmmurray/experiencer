@@ -4,9 +4,11 @@ import {
     axiosPutRequest,
 } from '../../config/axios';
 import { useMutation, useQuery } from 'react-query';
-import { UserPageSettings } from '../../entities/UserPageSettings';
+
 import { ReasonPhrases } from 'http-status-codes';
+import { UserPageSettings } from '../../entities/UserPageSettings';
 import { queryClient } from '../../config/queryClient';
+
 export const userPageSettingsQueryKeys = {
     all: 'userPageSettings' as const,
     view: (userId: string | null) =>

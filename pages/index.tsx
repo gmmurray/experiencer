@@ -1,8 +1,9 @@
 import { Container, Link } from '@mui/material';
+
+import { Fragment } from 'react';
+import NextLink from 'next/link';
 import type { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
-import NextLink from 'next/link';
-import { Fragment } from 'react';
 
 const Home: NextPage = () => {
     const { data: session } = useSession();

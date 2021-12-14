@@ -6,7 +6,8 @@ import {
     FormHelperText,
 } from '@mui/material';
 import { FC, Fragment } from 'react';
-import { Form, Field } from 'react-final-form';
+import { Field, Form } from 'react-final-form';
+
 import { DEFAULT_USER_SETTINGS } from '../lib/constants/defaultUserSettings';
 import { UserPageSettings } from '../entities/UserPageSettings';
 

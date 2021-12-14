@@ -1,12 +1,13 @@
 import { CircularProgress, Container } from '@mui/material';
-import { NextPage } from 'next';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+
 import CenteredContainer from '../../components/shared/CenteredContainer';
-import { useGetUserPageSettings } from '../../lib/queries/userPageSettings';
 import CreateUserPageSettingsPanel from '../../components/users/settings/CreateUserPageSettingsPanel';
+import { NextPage } from 'next';
 import ViewUserTabs from '../../components/users/tabs/ViewUserTabs';
+import { useGetUserPageSettings } from '../../lib/queries/userPageSettings';
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 
 const ViewUser: NextPage = () => {
     const router = useRouter();

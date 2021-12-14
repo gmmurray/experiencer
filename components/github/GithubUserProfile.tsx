@@ -1,6 +1,7 @@
-import { Grid, GridSize, Link, Stack, Typography } from '@mui/material';
-import { Box } from '@mui/system';
 import { FC, ReactNode } from 'react';
+import { Grid, GridSize, Link, Stack, Typography } from '@mui/material';
+
+import { Box } from '@mui/system';
 import { UserProfileResponseDataType } from '../../lib/types/octokitTypes';
 
 type ProfileField = {

@@ -7,8 +7,9 @@ import {
     Typography,
 } from '@mui/material';
 import { Box, SxProps, useTheme } from '@mui/system';
-import { useRouter } from 'next/router';
+
 import { useGetGithubUser } from '../../lib/queries/github';
+import { useRouter } from 'next/router';
 
 const containerProps: SxProps = { textAlign: 'center', pt: 5 };
 

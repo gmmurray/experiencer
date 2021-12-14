@@ -90,7 +90,6 @@ const ViewUserTabs: FC<ViewUserTabsProps> = ({ settings, isCurrentUser }) => {
             query.tab &&
             visibleTabs.some(tab => tab.value.toString() === resolvedQueryTab)
         ) {
-            console.log('using resolved query tab');
             setCurrentTab(resolvedQueryTab ?? '0');
         } else push({ query: { ...query, tab: currentTab } });
     }, [currentTab, push, query, resolvedQueryTab, visibleTabs]);

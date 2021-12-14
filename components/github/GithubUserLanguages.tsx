@@ -1,5 +1,3 @@
-import { Divider, Paper, Typography, useTheme } from '@mui/material';
-import { FC } from 'react';
 import {
     Bar,
     BarChart,
@@ -10,6 +8,9 @@ import {
     XAxis,
     YAxis,
 } from 'recharts';
+import { Divider, Paper, Typography, useTheme } from '@mui/material';
+
+import { FC } from 'react';
 
 const AxisTick = ({ payload: { value }, ...props }: any) => (
     <Text {...props} className="chart-axis-text">

@@ -1,12 +1,11 @@
-import NextAuth from 'next-auth';
-import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 import GithubProvider from 'next-auth/providers/github';
-// @ts-ignore
+import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
+import NextAuth from 'next-auth';
+import ObjectID from 'bson-objectid';
 import clientPromise from '../../../config/mongoAdapter';
 import { connectToDatabase } from '../../../config/mongodbClient';
-import ObjectID from 'bson-objectid';
+
 const nextAuth = NextAuth({
-    // @ts-ignore
     adapter: MongoDBAdapter(clientPromise),
     session: {
         strategy: 'jwt',

@@ -6,12 +6,13 @@ import {
     ListItemButton,
     ListItemText,
 } from '@mui/material';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import { FC } from 'react';
 import {
     UserProfileResponseDataType,
     UserSearchResponseDataType,
 } from '../../lib/types/octokitTypes';
+
+import { FC } from 'react';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 type GithubUserListItemProps = {
     user: UserSearchResponseDataType['items'][0];

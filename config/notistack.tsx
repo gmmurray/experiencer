@@ -1,12 +1,13 @@
-import React, { useCallback, useRef } from 'react';
-import { FC } from 'react';
+import { Button, Collapse } from '@mui/material';
 import {
-    SnackbarProvider,
-    SnackbarMessage,
     OptionsObject,
     SnackbarKey,
+    SnackbarMessage,
+    SnackbarProvider,
 } from 'notistack';
-import { Button, Collapse } from '@mui/material';
+import React, { useCallback, useRef } from 'react';
+
+import { FC } from 'react';
 
 export const SnackbarWrapper: FC = ({ children }) => {
     const ref = useRef<SnackbarProvider>(null);

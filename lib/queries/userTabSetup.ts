@@ -1,6 +1,7 @@
-import { useQuery } from 'react-query';
-import { axiosGetRequest } from '../../config/axios';
 import { UserTabKey, UserTabSetup } from '../../entities/UserTabSetup';
+
+import { axiosGetRequest } from '../../config/axios';
+import { useQuery } from 'react-query';
 
 export const userTabSetupQueryKeys = {
     all: 'userTabSetup' as const,

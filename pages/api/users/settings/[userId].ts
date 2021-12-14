@@ -1,14 +1,15 @@
-import { connectToDatabase } from '../../../../config/mongodbClient';
-import { RequestMethods } from '../../../../lib/constants/httpRequestMethods';
-import ObjectID from 'bson-objectid';
-import { StatusCodes } from 'http-status-codes';
-import { userPageSettingsCollection } from '../../../../entities/UserPageSettings';
 import {
-    createMethodHandler,
-    createRootHandler,
     CreateRootHandlerParams,
     RequestMethodHandler,
+    createMethodHandler,
+    createRootHandler,
 } from '../../../../lib/types/requests';
+
+import ObjectID from 'bson-objectid';
+import { RequestMethods } from '../../../../lib/constants/httpRequestMethods';
+import { StatusCodes } from 'http-status-codes';
+import { connectToDatabase } from '../../../../config/mongodbClient';
+import { userPageSettingsCollection } from '../../../../entities/UserPageSettings';
 
 const handleGetRequest: RequestMethodHandler = async (req, res) =>
     createMethodHandler({

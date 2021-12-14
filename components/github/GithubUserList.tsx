@@ -5,12 +5,13 @@ import {
     List,
     Pagination,
 } from '@mui/material';
-import { SxProps } from '@mui/system';
-import { useRouter } from 'next/router';
 import { FC, Fragment, useCallback } from 'react';
+
+import GithubUserListItem from './GithubUserListItem';
+import { SxProps } from '@mui/system';
 import { UserSearchResponseDataType } from '../../lib/types/octokitTypes';
 import { getPageCount } from '../../util/getPageCount';
-import GithubUserListItem from './GithubUserListItem';
+import { useRouter } from 'next/router';
 
 const containerProps: SxProps = { textAlign: 'center', pt: 5 };
 

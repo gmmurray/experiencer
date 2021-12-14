@@ -3,12 +3,13 @@ import {
     showErrorSnackbar,
     showSuccessSnackbar,
 } from '../../../config/notistack';
-import { useCreateUserPageSettings } from '../../../lib/queries/userPageSettings';
-import { UserPageSettings } from '../../../entities/UserPageSettings';
-import { useSnackbar } from 'notistack';
+
 import { Paper } from '@mui/material';
+import { UserPageSettings } from '../../../entities/UserPageSettings';
 import UserPageSettingsForm from '../../../forms/UserPageSettingsForm';
+import { useCreateUserPageSettings } from '../../../lib/queries/userPageSettings';
 import { useSession } from 'next-auth/react';
+import { useSnackbar } from 'notistack';
 
 type CreateUserPageSettingsPanelProps = {
     userId: string | null;

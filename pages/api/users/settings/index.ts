@@ -1,17 +1,18 @@
-import { StatusCodes } from 'http-status-codes';
-import { connectToDatabase } from '../../../../config/mongodbClient';
-import { RequestMethods } from '../../../../lib/constants/httpRequestMethods';
-import ObjectID from 'bson-objectid';
+import {
+    CreateRootHandlerParams,
+    RequestMethodHandler,
+    createMethodHandler,
+    createRootHandler,
+} from '../../../../lib/types/requests';
 import {
     UserPageSettings,
     userPageSettingsCollection,
 } from '../../../../entities/UserPageSettings';
-import {
-    createMethodHandler,
-    createRootHandler,
-    CreateRootHandlerParams,
-    RequestMethodHandler,
-} from '../../../../lib/types/requests';
+
+import ObjectID from 'bson-objectid';
+import { RequestMethods } from '../../../../lib/constants/httpRequestMethods';
+import { StatusCodes } from 'http-status-codes';
+import { connectToDatabase } from '../../../../config/mongodbClient';
 import { transformObjectIdFields } from '../../../../util/requests';
 
 const handlePostRequest: RequestMethodHandler = async (req, res) =>
@@ -19,7 +20,6 @@ const handlePostRequest: RequestMethodHandler = async (req, res) =>
         requireToken: true,
         requiredUserId: req.body.userId,
         callback: async (request, response) => {
-            console.log('in callback');
             const { db } = await connectToDatabase();
             await db.collection(userPageSettingsCollection).insertOne({
                 ...request.body,

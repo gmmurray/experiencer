@@ -1,19 +1,19 @@
 import {
+    Avatar,
     CircularProgress,
     Container,
-    Paper,
-    Typography,
-    Stack,
     Link,
-    Avatar,
+    Paper,
+    Stack,
+    Typography,
 } from '@mui/material';
 
-import { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import { useGetGithubUser } from '../../lib/queries/github';
 import { Box } from '@mui/system';
 import GithubUserLanguages from '../../components/github/GithubUserLanguages';
 import GithubUserProfile from '../../components/github/GithubUserProfile';
+import { NextPage } from 'next';
+import { useGetGithubUser } from '../../lib/queries/github';
+import { useRouter } from 'next/router';
 
 const ViewGithubUser: NextPage = () => {
     const router = useRouter();
