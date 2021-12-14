@@ -32,7 +32,7 @@ const Home: NextPage = () => {
                             <li>
                                 <NextLink
                                     // @ts-ignore
-                                    href={`/users/${session.user.providerAccountId}`}
+                                    href={`/users/${session.user._id}`}
                                     passHref
                                 >
                                     <Link>my experiencer profile</Link>
