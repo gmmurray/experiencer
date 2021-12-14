@@ -8,7 +8,7 @@ import { UserPageSettings } from '../../entities/UserPageSettings';
 import { ReasonPhrases } from 'http-status-codes';
 import { queryClient } from '../../config/queryClient';
 export const userPageSettingsQueryKeys = {
-    all: 'userSettings' as const,
+    all: 'userPageSettings' as const,
     view: (userId: string | null) =>
         [userPageSettingsQueryKeys.all, 'view', { userId }] as const,
 };
