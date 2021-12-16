@@ -70,8 +70,9 @@ export const axiosPutRequest = async (
         status === StatusCodes.NO_CONTENT ||
         status === StatusCodes.CREATED ||
         status === StatusCodes.OK
-    )
+    ) {
         return data;
+    }
 
     throw new Error(statusText);
 };

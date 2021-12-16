@@ -46,15 +46,12 @@ const handlePutRequest: RequestMethodHandler = async (req, res) =>
             const { db } = await connectToDatabase();
             const result = await db
                 .collection(userPageSettingsCollection)
-                .updateOne(
-                    { userId: transformedBody.userId },
-                    { enableTimeline: transformedBody.enableTimeline },
+                .findOneAndReplace(
+                    { _id: transformedBody._id },
+                    { ...transformedBody },
                 );
 
-            if (result.acknowledged)
-                response
-                    .status(StatusCodes.OK)
-                    .json({ userId: transformedBody.userId });
+            if (result.ok) response.status(StatusCodes.OK).json(result.value);
             else throw new Error();
         },
     })(req, res);

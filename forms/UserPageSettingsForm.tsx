@@ -9,6 +9,7 @@ import { FC, Fragment } from 'react';
 import { Field, Form } from 'react-final-form';
 
 import { DEFAULT_USER_SETTINGS } from '../lib/constants/defaultUserSettings';
+import { LoadingButton } from '@mui/lab';
 import { UserPageSettings } from '../entities/UserPageSettings';
 
 type UserPageSettingsFormProps = {
@@ -95,9 +96,9 @@ const UserPageSettingsForm: FC<UserPageSettingsFormProps> = ({
                             )}
                         />
                     </FormGroup>
-                    <Button type="submit" disabled={isLoading}>
+                    <LoadingButton type="submit" loading={isLoading}>
                         submit
-                    </Button>
+                    </LoadingButton>
                 </form>
             )}
         />

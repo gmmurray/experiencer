@@ -1,16 +1,18 @@
-import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Paper, Tab, Typography } from '@mui/material';
-import { Box } from '@mui/system';
-import { useRouter } from 'next/router';
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { UserPageSettings } from '../../../entities/UserPageSettings';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+
+import { Box } from '@mui/system';
 import ExperiencesTab from './ExperiencesTab';
 import GithubTab from './GithubTab';
 import TimeLineTab from './TimeLineTab';
+import { UserPageSettings } from '../../../entities/UserPageSettings';
 import UserPageSettingsTab from './UserPageSettingsTab';
+import { useRouter } from 'next/router';
 
 export type UserTabComponent = {
     userId: string;
+    isCurrentUser: boolean;
 };
 
 type TabDefinition = {
@@ -119,7 +121,10 @@ const ViewUserTabs: FC<ViewUserTabsProps> = ({ settings, isCurrentUser }) => {
                 </Box>
                 {visibleTabs.map(tab => (
                     <TabPanel key={tab.value} value={tab.value.toString()}>
-                        <tab.component userId={settings.userId} />
+                        <tab.component
+                            userId={settings.userId}
+                            isCurrentUser={isCurrentUser}
+                        />
                     </TabPanel>
                 ))}
             </TabContext>
