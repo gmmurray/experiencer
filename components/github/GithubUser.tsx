@@ -6,23 +6,34 @@ import {
     Stack,
     Typography,
 } from '@mui/material';
-import { Box, SxProps, useTheme } from '@mui/system';
+import { Box, SxProps } from '@mui/system';
 
 import { useGetGithubUser } from '../../lib/queries/github';
 import { useRouter } from 'next/router';
+import { FC } from 'react';
+import GithubUserLanguages from './GithubUserLanguages';
+import GithubUserProfile from './GithubUserProfile';
 
 const containerProps: SxProps = { textAlign: 'center', pt: 5 };
 
-const GithubUser = () => {
-    const theme = useTheme();
+type GithubUserProps = {
+    username?: string;
+};
+
+const GithubUser: FC<GithubUserProps> = ({ username }) => {
     const router = useRouter();
 
-    const { username } = router.query;
-    const resolvedUsername = !!username
-        ? typeof username === 'string'
-            ? username
-            : username[0]
-        : null;
+    const { username: queryUsername } = router.query;
+    let resolvedUsername;
+    if (username) {
+        resolvedUsername = username;
+    } else {
+        resolvedUsername = !!queryUsername
+            ? typeof queryUsername === 'string'
+                ? queryUsername
+                : queryUsername[0]
+            : null;
+    }
 
     const { data, isLoading } = useGetGithubUser(resolvedUsername);
 
@@ -32,14 +43,16 @@ const GithubUser = () => {
                 <CircularProgress />
             </Container>
         );
-    } else if (!username || !data) {
-        <Container sx={{ ...containerProps }}>
-            that user cannot be found
-        </Container>;
+    } else if (!resolvedUsername || !data) {
+        return (
+            <Container sx={{ ...containerProps }}>
+                that user cannot be found
+            </Container>
+        );
     }
 
     return (
-        <Container sx={{ pt: containerProps.pt }}>
+        <Container sx={{ pt: containerProps.pt, textAlign: 'left' }}>
             <Stack direction="row" spacing={2}>
                 <Avatar
                     // @ts-ignore
@@ -59,11 +72,13 @@ const GithubUser = () => {
                 <Typography variant="h4" sx={{ my: 2 }}>
                     languages
                 </Typography>
+                <GithubUserLanguages data={data.languageCounts} />
             </Box>
             <Box my={2}>
                 <Typography variant="h4" sx={{ my: 2 }}>
                     profile
                 </Typography>
+                <GithubUserProfile data={data.userData} />
             </Box>
         </Container>
     );
