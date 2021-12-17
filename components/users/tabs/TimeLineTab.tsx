@@ -4,21 +4,10 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
-    Divider,
-    IconButton,
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
-    TextField,
     Typography,
 } from '@mui/material';
 import { FC, Fragment, useCallback, useEffect, useState } from 'react';
-import { Field, Form } from 'react-final-form';
 import {
-    LoadingButton,
-    LocalizationProvider,
     Timeline,
     TimelineConnector,
     TimelineContent,
@@ -42,12 +31,10 @@ import {
 
 import AddIcon from '@mui/icons-material/Add';
 import { Box } from '@mui/system';
-import DateAdapter from '@mui/lab/AdapterMoment';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ResponsiveDatePicker from '../../shared/ResponsiveDatePicker';
-import { UserPageSettings } from '../../../entities/UserPageSettings';
 import { UserTabComponent } from './ViewUserTabs';
 import { useSnackbar } from 'notistack';
+import TimelineDataPointForm from '../../../forms/TimelineDataPointForm';
+import TimelineDataPointList from './TimelineDataPointList';
 
 const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
     const { enqueueSnackbar } = useSnackbar();
@@ -116,13 +103,18 @@ const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
         [],
     );
 
+    const handleCloseDialog = useCallback(() => setIsModalOpen(false), []);
+
     useEffect(() => {
         if (!isModalOpen) {
-            setSelectedItem(null);
+            setTimeout(() => setSelectedItem(null), 1000);
         }
     }, [isModalOpen]);
 
     const timelineData = settings?.tabSetup.timeline;
+    const sortedDataPoints = timelineData?.dataPoints.sort((a, b) =>
+        a.date > b.date ? -1 : 1,
+    );
 
     if (isEditMode && isCurrentUser) {
         const selectedValues = selectedItem
@@ -150,117 +142,23 @@ const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
                         stop editing
                     </Button>
                 </Box>
-                <List>
-                    {(timelineData?.dataPoints ?? [])
-                        .sort((a, b) => (a.date > b.date ? -1 : 1))
-                        .map((d, i) => (
-                            <Fragment key={i}>
-                                <ListItem
-                                    disablePadding
-                                    secondaryAction={
-                                        <IconButton
-                                            edge="end"
-                                            aria-label="delete"
-                                            onClick={() => handleDeleteItem(i)}
-                                        >
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    }
-                                >
-                                    <ListItemButton
-                                        onClick={() => handleSelectItem(i, d)}
-                                    >
-                                        <ListItemText
-                                            primary={d.title}
-                                            secondary={
-                                                <Fragment>
-                                                    <Typography>
-                                                        {d.description}
-                                                    </Typography>
-                                                    <Typography>
-                                                        {new Date(
-                                                            d.date,
-                                                        ).toLocaleDateString()}
-                                                    </Typography>
-                                                </Fragment>
-                                            }
-                                        />
-                                    </ListItemButton>
-                                </ListItem>
-                                {i !==
-                                    (timelineData?.dataPoints ?? []).length -
-                                        1 && <Divider />}
-                            </Fragment>
-                        ))}
-                </List>
-                <Dialog
-                    open={isModalOpen}
-                    onClose={() => setIsModalOpen(false)}
-                >
+                <TimelineDataPointList
+                    data={sortedDataPoints ?? []}
+                    onDelete={handleDeleteItem}
+                    onSelect={handleSelectItem}
+                />
+                <Dialog open={isModalOpen} onClose={handleCloseDialog}>
                     <DialogTitle>add new timeline item</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
                             you can any add sort of date-based event that you
                             think is important
                         </DialogContentText>
-                        <Form
+                        <TimelineDataPointForm
                             onSubmit={onSubmitFunction}
                             initialValues={selectedValues}
-                            render={({ handleSubmit }) => (
-                                <form onSubmit={handleSubmit}>
-                                    <Field
-                                        name="title"
-                                        render={({ input }) => (
-                                            <TextField
-                                                {...input}
-                                                autoFocus
-                                                label="title"
-                                                fullWidth
-                                                variant="standard"
-                                            />
-                                        )}
-                                    />
-                                    <Field
-                                        name="description"
-                                        render={({ input }) => (
-                                            <TextField
-                                                {...input}
-                                                multiline
-                                                label="description"
-                                                fullWidth
-                                                variant="standard"
-                                            />
-                                        )}
-                                    />
-                                    <Field
-                                        name="date"
-                                        render={({ input }) => (
-                                            <LocalizationProvider
-                                                dateAdapter={DateAdapter}
-                                            >
-                                                <ResponsiveDatePicker
-                                                    {...input}
-                                                    label="date"
-                                                    inputFormat="MM/DD/yyyy"
-                                                    renderInput={params => (
-                                                        <TextField
-                                                            {...params}
-                                                            fullWidth
-                                                            variant="standard"
-                                                        />
-                                                    )}
-                                                />
-                                            </LocalizationProvider>
-                                        )}
-                                    />
-                                    <LoadingButton
-                                        type="submit"
-                                        loading={updateMutation.isLoading}
-                                    >
-                                        save
-                                    </LoadingButton>
-                                </form>
-                            )}
+                            isLoading={updateMutation.isLoading}
+                            onClose={handleCloseDialog}
                         />
                     </DialogContent>
                 </Dialog>
@@ -292,25 +190,25 @@ const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
                 </Box>
             )}
             <Timeline position="alternate">
-                {(timelineData?.dataPoints ?? [])
-                    .sort((a, b) => (a.date > b.date ? -1 : 1))
-                    .map((d, i) => (
-                        <TimelineItem key={i}>
-                            <TimelineOppositeContent color="text.secondary">
-                                {new Date(d.date).toLocaleDateString()}
-                            </TimelineOppositeContent>
-                            <TimelineSeparator>
-                                <TimelineDot />
-                                <TimelineConnector />
-                            </TimelineSeparator>
-                            <TimelineContent>
-                                <Typography variant="h6">{d.title}</Typography>
-                                <Typography variant="body2">
-                                    {d.description}
-                                </Typography>
-                            </TimelineContent>
-                        </TimelineItem>
-                    ))}
+                {(sortedDataPoints ?? []).map((d, i) => (
+                    <TimelineItem key={i}>
+                        <TimelineOppositeContent color="text.secondary">
+                            {new Date(d.date).toLocaleDateString()}
+                        </TimelineOppositeContent>
+                        <TimelineSeparator>
+                            <TimelineDot
+                                color={!!(i % 2) ? 'primary' : 'secondary'}
+                            />
+                            <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                            <Typography variant="h6">{d.title}</Typography>
+                            <Typography variant="body2">
+                                {d.description}
+                            </Typography>
+                        </TimelineContent>
+                    </TimelineItem>
+                ))}
             </Timeline>
         </Fragment>
     );
