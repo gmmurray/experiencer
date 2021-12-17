@@ -6,6 +6,8 @@ export interface UserPageSettings {
     enableTimeline: boolean;
     enableExperiences: boolean;
     enableGithub: boolean;
+    displayName?: string;
+    avatarUrl?: string;
     tabSetup: UserTabSetup;
 }
 

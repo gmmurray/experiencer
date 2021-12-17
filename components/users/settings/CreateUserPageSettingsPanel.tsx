@@ -10,21 +10,23 @@ import UserPageSettingsForm from '../../../forms/UserPageSettingsForm';
 import { useCreateUserPageSettings } from '../../../lib/queries/userPageSettings';
 import { useSession } from 'next-auth/react';
 import { useSnackbar } from 'notistack';
+import { Session } from 'next-auth';
+import { GithubSession } from '../../../lib/types/GithubSession';
 
-type CreateUserPageSettingsPanelProps = {
-    userId: string | null;
-};
-
-const CreateUserPageSettingsPanel: FC<CreateUserPageSettingsPanelProps> = ({
-    userId,
-}) => {
+const CreateUserPageSettingsPanel = () => {
     const { enqueueSnackbar } = useSnackbar();
     const createMutation = useCreateUserPageSettings();
+    const { data: session } = useSession();
+    const typedSession = session as GithubSession | null;
 
     const handleCreate = useCallback(
         async (data: Partial<UserPageSettings>) => {
             createMutation.mutate(
-                { ...data, userId: userId ?? undefined },
+                {
+                    ...data,
+                    userId: typedSession?.user?._id,
+                    displayName: data.displayName ?? typedSession?.user?.login,
+                },
                 {
                     onSuccess: async () =>
                         showSuccessSnackbar(
@@ -39,8 +41,12 @@ const CreateUserPageSettingsPanel: FC<CreateUserPageSettingsPanelProps> = ({
                 },
             );
         },
-        [createMutation, enqueueSnackbar, userId],
+        [createMutation, enqueueSnackbar, typedSession?.user],
     );
+
+    if (!typedSession) {
+        return null;
+    }
     return (
         <Paper elevation={1} sx={{ p: 2, my: 2 }}>
             <UserPageSettingsForm

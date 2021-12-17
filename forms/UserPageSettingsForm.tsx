@@ -1,9 +1,9 @@
 import {
-    Button,
     Checkbox,
     FormControlLabel,
     FormGroup,
     FormHelperText,
+    TextField,
 } from '@mui/material';
 import { FC, Fragment } from 'react';
 import { Field, Form } from 'react-final-form';
@@ -93,6 +93,28 @@ const UserPageSettingsForm: FC<UserPageSettingsFormProps> = ({
                                         info
                                     </FormHelperText>
                                 </Fragment>
+                            )}
+                        />
+                    </FormGroup>
+                    <FormGroup>
+                        <Field
+                            name="displayName"
+                            render={({ input }) => (
+                                <TextField
+                                    {...input}
+                                    label="display name"
+                                    variant="standard"
+                                />
+                            )}
+                        />
+                        <Field
+                            name="avatarUrl"
+                            render={({ input }) => (
+                                <TextField
+                                    {...input}
+                                    label="avatar url"
+                                    variant="standard"
+                                />
                             )}
                         />
                     </FormGroup>

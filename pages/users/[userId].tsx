@@ -8,10 +8,12 @@ import ViewUserTabs from '../../components/users/tabs/ViewUserTabs';
 import { useGetUserPageSettings } from '../../lib/queries/userPageSettings';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
+import { GithubSession } from '../../lib/types/GithubSession';
 
 const ViewUser: NextPage = () => {
     const router = useRouter();
     const { data: session } = useSession();
+    const typedSession = session as GithubSession | null;
     const { userId } = router.query;
     const resolvedUserId = !!userId
         ? typeof userId === 'string'
@@ -22,16 +24,15 @@ const ViewUser: NextPage = () => {
     const [isCurrentUser, setIsCurrentUser] = useState(false);
     useEffect(() => {
         if (
-            session &&
-            session.user &&
-            // @ts-ignore
-            session.user._id.toString() === resolvedUserId
+            typedSession &&
+            typedSession.user &&
+            typedSession.user._id.toString() === resolvedUserId
         ) {
             setIsCurrentUser(true);
         } else {
             setIsCurrentUser(false);
         }
-    }, [resolvedUserId, session]);
+    }, [resolvedUserId, typedSession]);
     const { data, isLoading } = useGetUserPageSettings(resolvedUserId);
 
     if (isLoading) {
@@ -44,7 +45,7 @@ const ViewUser: NextPage = () => {
         return (
             <CenteredContainer>
                 do you want to create your settings now
-                <CreateUserPageSettingsPanel userId={resolvedUserId} />
+                <CreateUserPageSettingsPanel />
             </CenteredContainer>
         );
     } else if (!data) {

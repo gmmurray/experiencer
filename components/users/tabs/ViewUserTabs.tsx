@@ -103,7 +103,7 @@ const ViewUserTabs: FC<ViewUserTabsProps> = ({ settings, isCurrentUser }) => {
 
     return (
         <Paper elevation={1} sx={{ p: 2, my: 2 }}>
-            user {settings.userId}
+            <Typography variant="h6">{settings.displayName}</Typography>
             <TabContext value={currentTab.toString()}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList
