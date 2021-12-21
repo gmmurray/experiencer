@@ -3,7 +3,6 @@ import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 import NextAuth from 'next-auth';
 import ObjectID from 'bson-objectid';
 import clientPromise from '../../../config/mongoAdapter';
-import { connectToDatabase } from '../../../config/mongodbClient';
 
 const nextAuth = NextAuth({
     adapter: MongoDBAdapter(clientPromise),
@@ -41,7 +40,7 @@ const nextAuth = NextAuth({
         session: async params => {
             const { session, token } = params;
             if (session && session.user && token && token.sub) {
-                const { db } = await connectToDatabase();
+                const db = (await clientPromise).db();
                 const user = await db
                     .collection('users')
                     // @ts-ignore

@@ -1,14 +1,15 @@
 import {
+    CreateRootHandlerParams,
     RequestMethodHandler,
     createMethodHandler,
-    CreateRootHandlerParams,
     createRootHandler,
 } from '../../../lib/types/requests';
-import { connectToDatabase } from '../../../config/mongodbClient';
-import { githubUsersCollection } from '../../../entities/GithubUser';
+
 import ObjectID from 'bson-objectid';
-import { StatusCodes } from 'http-status-codes';
 import { RequestMethods } from '../../../lib/constants/httpRequestMethods';
+import { StatusCodes } from 'http-status-codes';
+import clientPromise from '../../../config/mongoAdapter';
+import { githubUsersCollection } from '../../../entities/GithubUser';
 
 const handleGetRequest: RequestMethodHandler = async (req, res) =>
     createMethodHandler({
@@ -17,7 +18,7 @@ const handleGetRequest: RequestMethodHandler = async (req, res) =>
             const { userId } = request.query;
             const resolvedUserId =
                 typeof userId === 'string' ? userId : userId[0];
-            const { db } = await connectToDatabase();
+            const db = (await clientPromise).db();
             const result = await db
                 .collection(githubUsersCollection)
                 .findOne({ _id: new ObjectID(resolvedUserId) });

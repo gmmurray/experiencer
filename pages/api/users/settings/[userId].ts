@@ -8,7 +8,7 @@ import {
 import ObjectID from 'bson-objectid';
 import { RequestMethods } from '../../../../lib/constants/httpRequestMethods';
 import { StatusCodes } from 'http-status-codes';
-import { connectToDatabase } from '../../../../config/mongodbClient';
+import clientPromise from '../../../../config/mongoAdapter';
 import { userPageSettingsCollection } from '../../../../entities/UserPageSettings';
 
 const handleGetRequest: RequestMethodHandler = async (req, res) =>
@@ -18,7 +18,7 @@ const handleGetRequest: RequestMethodHandler = async (req, res) =>
             const { userId } = request.query;
             const resolvedUserId =
                 typeof userId === 'string' ? userId : userId[0];
-            const { db } = await connectToDatabase();
+            const db = (await clientPromise).db();
             const result = await db
                 .collection(userPageSettingsCollection)
                 .findOne({ userId: new ObjectID(resolvedUserId) });

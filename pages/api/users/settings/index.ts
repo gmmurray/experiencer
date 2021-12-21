@@ -12,7 +12,7 @@ import {
 import ObjectID from 'bson-objectid';
 import { RequestMethods } from '../../../../lib/constants/httpRequestMethods';
 import { StatusCodes } from 'http-status-codes';
-import { connectToDatabase } from '../../../../config/mongodbClient';
+import clientPromise from '../../../../config/mongoAdapter';
 import { transformObjectIdFields } from '../../../../util/requests';
 
 const handlePostRequest: RequestMethodHandler = async (req, res) =>
@@ -20,7 +20,7 @@ const handlePostRequest: RequestMethodHandler = async (req, res) =>
         requireToken: true,
         requiredUserId: req.body.userId,
         callback: async (request, response) => {
-            const { db } = await connectToDatabase();
+            const db = (await clientPromise).db();
             await db.collection(userPageSettingsCollection).insertOne({
                 ...request.body,
                 userId: new ObjectID(request.body.userId),
@@ -43,7 +43,7 @@ const handlePutRequest: RequestMethodHandler = async (req, res) =>
                 ['_id', 'userId'],
             );
 
-            const { db } = await connectToDatabase();
+            const db = (await clientPromise).db();
             const result = await db
                 .collection(userPageSettingsCollection)
                 .findOneAndReplace(
