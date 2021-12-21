@@ -8,6 +8,10 @@ import {
 } from '@mui/material';
 import { FC, Fragment, useCallback, useEffect, useState } from 'react';
 import {
+    OperationType,
+    OperationTypes,
+} from '../../../lib/types/operationTypes';
+import {
     Timeline,
     TimelineConnector,
     TimelineContent,
@@ -19,7 +23,7 @@ import {
 import {
     TimelineDataPoint,
     modifyTimelineDataPoints,
-} from '../../../entities/UserTabSetup';
+} from '../../../entities/TimelineTabSettings';
 import {
     showErrorSnackbar,
     showSuccessSnackbar,
@@ -31,10 +35,10 @@ import {
 
 import AddIcon from '@mui/icons-material/Add';
 import { Box } from '@mui/system';
-import { UserTabComponent } from './ViewUserTabs';
-import { useSnackbar } from 'notistack';
 import TimelineDataPointForm from '../../../forms/TimelineDataPointForm';
 import TimelineDataPointList from './TimelineDataPointList';
+import { UserTabComponent } from './ViewUserTabs';
+import { useSnackbar } from 'notistack';
 
 const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
     const { enqueueSnackbar } = useSnackbar();
@@ -44,12 +48,13 @@ const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
         number,
         TimelineDataPoint
     > | null>(null);
-    const { data: settings } = useGetUserPageSettings(userId);
+    const { data: settings, isLoading: settingsAreLoading } =
+        useGetUserPageSettings(userId);
     const updateMutation = useUpdateUserPageSettings();
 
     const handleModifyItems = useCallback(
         async (
-            operation: 'add' | 'update' | 'delete',
+            operation: OperationType,
             data?: TimelineDataPoint,
             index?: number,
         ) => {
@@ -64,9 +69,12 @@ const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
 
             updateMutation.mutate(modifiedSettings, {
                 onSuccess: async () =>
-                    showSuccessSnackbar(enqueueSnackbar, 'items modified'),
+                    showSuccessSnackbar(enqueueSnackbar, 'timeline modified'),
                 onError: async () =>
-                    showErrorSnackbar(enqueueSnackbar, 'error modifying items'),
+                    showErrorSnackbar(
+                        enqueueSnackbar,
+                        'error modifying timeline',
+                    ),
             });
         },
         [enqueueSnackbar, settings, updateMutation],
@@ -74,7 +82,7 @@ const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
 
     const handleAddItem = useCallback(
         async (data: TimelineDataPoint) => {
-            await handleModifyItems('add', data);
+            await handleModifyItems(OperationTypes.ADD, data);
             setIsModalOpen(false);
         },
         [handleModifyItems],
@@ -82,7 +90,7 @@ const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
 
     const handleUpdateItem = useCallback(
         async (data: TimelineDataPoint, index?: number) => {
-            await handleModifyItems('update', data, index);
+            await handleModifyItems(OperationTypes.UPDATE, data, index);
             setIsModalOpen(false);
         },
         [handleModifyItems],
@@ -90,7 +98,7 @@ const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
 
     const handleDeleteItem = useCallback(
         async (index?: number) => {
-            await handleModifyItems('delete', undefined, index);
+            await handleModifyItems(OperationTypes.DELETE, undefined, index);
         },
         [handleModifyItems],
     );
@@ -146,6 +154,7 @@ const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
                     data={sortedDataPoints ?? []}
                     onDelete={handleDeleteItem}
                     onSelect={handleSelectItem}
+                    isLoading={settingsAreLoading || updateMutation.isLoading}
                 />
                 <Dialog open={isModalOpen} onClose={handleCloseDialog}>
                     <DialogTitle>add new timeline item</DialogTitle>
@@ -157,7 +166,9 @@ const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
                         <TimelineDataPointForm
                             onSubmit={onSubmitFunction}
                             initialValues={selectedValues}
-                            isLoading={updateMutation.isLoading}
+                            isLoading={
+                                settingsAreLoading || updateMutation.isLoading
+                            }
                             onClose={handleCloseDialog}
                         />
                     </DialogContent>

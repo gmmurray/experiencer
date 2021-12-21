@@ -2,7 +2,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import TextField from '@mui/material/TextField';
 import { FC } from 'react';
 import { Field, Form } from 'react-final-form';
-import { TimelineDataPoint } from '../entities/UserTabSetup';
+import { TimelineDataPoint } from '../entities/TimelineTabSettings';
 import DateAdapter from '@mui/lab/AdapterMoment';
 import ResponsiveDatePicker from '../components/shared/ResponsiveDatePicker';
 import LoadingButton from '@mui/lab/LoadingButton';

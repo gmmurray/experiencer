@@ -6,9 +6,7 @@ export type RouteMapRoute = {
     isDefault?: boolean;
 };
 
-export type RouteMap = {
-    [key: string]: RouteMapRoute;
-};
+export type RouteMap = Record<string, RouteMapRoute>;
 
 export const routeMap: RouteMap = {
     ['/']: {

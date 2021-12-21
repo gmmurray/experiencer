@@ -1,25 +1,31 @@
+import { OperationType, OperationTypes } from '../lib/types/operationTypes';
+
+import { ExperiencesTabSettings } from './ExperiencesTabSettings';
+import { TimelineTabSettings } from './TimelineTabSettings';
 import { UserPageSettings } from './UserPageSettings';
 
 export type UserTabKey = 'timeline' | 'experiences' | 'github';
-
-export interface TimelineDataPoint {
-    date: Date;
-    title: string;
-    description: string;
-}
-
-export interface TimelineTabSettings {
-    dataPoints: TimelineDataPoint[];
-}
+export const UserTabKeys: Record<string, UserTabKey> = {
+    TIMELINE: 'timeline',
+    EXPERIENCES: 'experiences',
+    GITHUB: 'github',
+};
 
 export interface UserTabSetup extends Record<UserTabKey, any> {
     timeline: TimelineTabSettings | undefined;
+    experiences: ExperiencesTabSettings | undefined;
+}
+
+export interface DataPoint extends Record<string, any> {}
+
+export interface DataPointTabSettings {
+    dataPoints: DataPoint[];
 }
 
 const addDataPoint = (
-    dataPoints: TimelineDataPoint[],
-    newDataPoint?: TimelineDataPoint,
-): TimelineDataPoint[] => {
+    dataPoints: DataPoint[],
+    newDataPoint?: DataPoint,
+): DataPoint[] => {
     let result = [...dataPoints];
     if (newDataPoint) {
         result = [...result, newDataPoint];
@@ -28,10 +34,10 @@ const addDataPoint = (
 };
 
 const updateDataPoint = (
-    dataPoints: TimelineDataPoint[],
-    updatedDataPoint?: TimelineDataPoint,
+    dataPoints: DataPoint[],
+    updatedDataPoint?: DataPoint,
     index?: number,
-): TimelineDataPoint[] => {
+): DataPoint[] => {
     if (updatedDataPoint && index !== null && index !== undefined) {
         dataPoints[index] = updatedDataPoint;
     }
@@ -39,9 +45,9 @@ const updateDataPoint = (
 };
 
 const deleteDataPoint = (
-    dataPoints: TimelineDataPoint[],
+    dataPoints: DataPoint[],
     index?: number,
-): TimelineDataPoint[] => {
+): DataPoint[] => {
     let result = [...dataPoints];
     if (index !== null && index !== undefined) {
         result = result.filter((dp, i) => i !== index);
@@ -49,24 +55,28 @@ const deleteDataPoint = (
     return result;
 };
 
-export const modifyTimelineDataPoints = (
+export const modifyDataPoints = (
+    tab: UserTabKey,
     settings: UserPageSettings,
-    operation: 'add' | 'update' | 'delete',
-    dataPoint?: TimelineDataPoint,
+    operation: OperationType,
+    dataPoint?: DataPoint,
     index?: number,
 ): UserPageSettings => {
-    const { tabSetup: { timeline: { dataPoints = [] } = {} } = {} } = settings;
+    const { tabSetup: { [tab]: { dataPoints = [] } = {} } = {} } = settings;
 
     let modifiedDataPoints;
     switch (operation) {
-        case 'add':
+        case OperationTypes.ADD:
             modifiedDataPoints = addDataPoint(dataPoints, dataPoint);
             break;
-        case 'update':
+        case OperationTypes.UPDATE:
             modifiedDataPoints = updateDataPoint(dataPoints, dataPoint, index);
             break;
-        case 'delete':
+        case OperationTypes.DELETE:
             modifiedDataPoints = deleteDataPoint(dataPoints, index);
+            break;
+        default:
+            modifiedDataPoints = dataPoints;
             break;
     }
 
@@ -74,8 +84,8 @@ export const modifyTimelineDataPoints = (
         ...settings,
         tabSetup: {
             ...settings.tabSetup,
-            timeline: {
-                ...settings.tabSetup.timeline,
+            [tab]: {
+                ...settings.tabSetup[tab],
                 dataPoints: modifiedDataPoints,
             },
         },

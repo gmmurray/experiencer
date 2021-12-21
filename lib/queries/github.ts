@@ -66,7 +66,7 @@ const getGithubUser = async (
                 [language]: count,
             };
         } else return prev;
-    }, {} as { [key: string]: number });
+    }, {} as Record<string, number>);
 
     return {
         userData,

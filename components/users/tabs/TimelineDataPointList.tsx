@@ -8,19 +8,22 @@ import {
     Typography,
 } from '@mui/material';
 import { FC, Fragment } from 'react';
-import { TimelineDataPoint } from '../../../entities/UserTabSetup';
+
 import DeleteIcon from '@mui/icons-material/Delete';
+import { TimelineDataPoint } from '../../../entities/TimelineTabSettings';
 
 type TimelineDataPointListProps = {
     data: TimelineDataPoint[];
     onDelete: (index?: number | undefined) => Promise<void>;
     onSelect: (index: number, data: TimelineDataPoint) => void;
+    isLoading: boolean;
 };
 
 const TimelineDataPointList: FC<TimelineDataPointListProps> = ({
     data,
     onDelete,
     onSelect,
+    isLoading,
 }) => {
     return (
         <List>
@@ -38,7 +41,10 @@ const TimelineDataPointList: FC<TimelineDataPointListProps> = ({
                             </IconButton>
                         }
                     >
-                        <ListItemButton onClick={() => onSelect(i, d)}>
+                        <ListItemButton
+                            onClick={() => onSelect(i, d)}
+                            disabled={isLoading}
+                        >
                             <ListItemText
                                 primary={d.title}
                                 secondary={
