@@ -83,9 +83,9 @@ export const modifyDataPoints = (
     return {
         ...settings,
         tabSetup: {
-            ...settings.tabSetup,
+            ...(settings.tabSetup ?? {}),
             [tab]: {
-                ...settings.tabSetup[tab],
+                ...((settings.tabSetup ?? {})[tab] ?? {}),
                 dataPoints: modifiedDataPoints,
             },
         },
