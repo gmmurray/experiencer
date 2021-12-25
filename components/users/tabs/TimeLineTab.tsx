@@ -119,7 +119,7 @@ const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
         }
     }, [isModalOpen]);
 
-    const timelineData = settings?.tabSetup.timeline;
+    const timelineData = settings?.tabSetup?.timeline;
     const sortedDataPoints = timelineData?.dataPoints.sort((a, b) =>
         a.date > b.date ? -1 : 1,
     );

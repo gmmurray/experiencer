@@ -123,7 +123,7 @@ const ExperiencesTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
         [],
     );
 
-    const experiencesData = settings?.tabSetup.experiences;
+    const experiencesData = settings?.tabSetup?.experiences;
 
     if (isEditMode && isCurrentUser) {
         const selectedValues = selectedItem
