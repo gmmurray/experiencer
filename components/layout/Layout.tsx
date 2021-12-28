@@ -21,6 +21,7 @@ const Layout: FC = ({ children }) => {
     const [currentRoute, setCurrentRoute] = useState<RouteMapRoute>(
         routeMap.default,
     );
+    const sessionIsLoading = status === 'loading';
 
     useEffect(() => {
         const route = routeMap[pathname] ?? routeMap.default;
@@ -28,7 +29,7 @@ const Layout: FC = ({ children }) => {
     }, [pathname]);
 
     const renderChildren = () => {
-        if (status === 'loading') {
+        if (sessionIsLoading) {
             return <CenteredCircularProgress minHeight="calc(100vh - 64px)" />;
         }
         return children;
@@ -55,22 +56,13 @@ const Layout: FC = ({ children }) => {
                                             {r.title}
                                         </Link>
                                     </NextLink>
-                                    // <Link
-                                    //     key={r.pathname}
-                                    //     component={NextLink}
-                                    //     href={r.pathname}
-                                    //     color="inherit"
-                                    //     underline="hover"
-                                    // >
-                                    //     {r.title}
-                                    // </Link>
                                 ))}
                                 <Typography color="text.primary">
                                     {currentRoute.title}
                                 </Typography>
                             </Breadcrumbs>
                         )}
-                        {!session && (
+                        {!sessionIsLoading && !session && (
                             <Button
                                 onClick={() => signIn()}
                                 color="inherit"
@@ -79,7 +71,7 @@ const Layout: FC = ({ children }) => {
                                 login
                             </Button>
                         )}
-                        {session && (
+                        {!sessionIsLoading && session && (
                             <Button
                                 onClick={() => signOut()}
                                 color="inherit"
