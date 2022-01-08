@@ -1,14 +1,14 @@
-import { Container, Paper } from '@mui/material';
+import { Box, Container } from '@mui/material';
 
-import { NextPage } from 'next';
 import GithubUser from '../../components/github/GithubUser';
+import { NextPage } from 'next';
 
 const ViewGithubUser: NextPage = () => {
     return (
         <Container>
-            <Paper elevation={1} sx={{ minHeight: 400, p: 2, my: 2 }}>
+            <Box sx={{ minHeight: 400, p: 2, my: 2 }}>
                 <GithubUser />
-            </Paper>
+            </Box>
         </Container>
     );
 };

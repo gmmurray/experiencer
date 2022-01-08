@@ -43,12 +43,5 @@ export const routeMap: RouteMap = {
             },
         ],
     },
-    default: { title: 'experiencer', isDefault: true },
+    default: { title: 'home', isDefault: true },
 };
-
-// export const getRouteTitle = (pathname: string) =>
-//     routeMap[
-//         Object.keys(routeMap).filter(key =>
-//             pathname.toLocaleLowerCase().includes(key.toLocaleLowerCase()),
-//         )[0] ?? 'default'
-//     ];

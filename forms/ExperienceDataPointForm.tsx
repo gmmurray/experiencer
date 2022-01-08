@@ -1,4 +1,4 @@
-import { Button, FormGroup, TextField } from '@mui/material';
+import { Box, Button, FormGroup, TextField } from '@mui/material';
 import { Field, Form } from 'react-final-form';
 import { isRequired, isValidUrl } from './validation';
 
@@ -37,6 +37,7 @@ const ExperienceDataPointForm: FC<ExperienceDataPointFormProps> = ({
                                     variant="standard"
                                     error={meta.error && meta.touched}
                                     helperText={meta.touched && meta.error}
+                                    sx={{ mb: 1 }}
                                 />
                             )}
                         />
@@ -52,6 +53,7 @@ const ExperienceDataPointForm: FC<ExperienceDataPointFormProps> = ({
                                     variant="standard"
                                     error={meta.error && meta.touched}
                                     helperText={meta.touched && meta.error}
+                                    sx={{ mb: 1 }}
                                 />
                             )}
                         />
@@ -66,6 +68,7 @@ const ExperienceDataPointForm: FC<ExperienceDataPointFormProps> = ({
                                     variant="standard"
                                     error={meta.error && meta.touched}
                                     helperText={meta.touched && meta.error}
+                                    sx={{ mb: 1 }}
                                 />
                             )}
                         />
@@ -81,6 +84,7 @@ const ExperienceDataPointForm: FC<ExperienceDataPointFormProps> = ({
                                         variant="standard"
                                         error={meta.error && meta.touched}
                                         helperText={meta.touched && meta.error}
+                                        sx={{ mb: 1 }}
                                     />
                                 )}
                             />
@@ -96,6 +100,7 @@ const ExperienceDataPointForm: FC<ExperienceDataPointFormProps> = ({
                                     variant="standard"
                                     error={meta.error && meta.touched}
                                     helperText={meta.touched && meta.error}
+                                    sx={{ mb: 1 }}
                                 />
                             )}
                         />
@@ -111,15 +116,29 @@ const ExperienceDataPointForm: FC<ExperienceDataPointFormProps> = ({
                                         variant="standard"
                                         error={meta.error && meta.touched}
                                         helperText={meta.touched && meta.error}
+                                        sx={{ mb: 1 }}
                                     />
                                 )}
                             />
                         )}
                     </FormGroup>
-                    <LoadingButton type="submit" loading={isLoading}>
-                        save
-                    </LoadingButton>
-                    <Button onClick={onClose}>cancel</Button>
+                    <Box mt={3}>
+                        <LoadingButton
+                            type="submit"
+                            loading={isLoading}
+                            color="primary"
+                            variant="contained"
+                        >
+                            save
+                        </LoadingButton>
+                        <Button
+                            onClick={onClose}
+                            color="inherit"
+                            sx={{ ml: 2 }}
+                        >
+                            cancel
+                        </Button>
+                    </Box>
                 </form>
             )}
         />

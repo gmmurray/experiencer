@@ -1,12 +1,13 @@
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import TextField from '@mui/material/TextField';
-import { FC } from 'react';
+import { Box, Button, FormGroup } from '@mui/material';
 import { Field, Form } from 'react-final-form';
-import { TimelineDataPoint } from '../entities/TimelineTabSettings';
+
 import DateAdapter from '@mui/lab/AdapterMoment';
-import ResponsiveDatePicker from '../components/shared/ResponsiveDatePicker';
+import { FC } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Button, FormGroup } from '@mui/material';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import ResponsiveDatePicker from '../components/shared/ResponsiveDatePicker';
+import TextField from '@mui/material/TextField';
+import { TimelineDataPoint } from '../entities/TimelineTabSettings';
 import { isRequired } from './validation';
 
 type TimelineDataPointFormProps = {
@@ -40,6 +41,7 @@ const TimelineDataPointForm: FC<TimelineDataPointFormProps> = ({
                                     variant="standard"
                                     error={meta.error && meta.touched}
                                     helperText={meta.touched && meta.error}
+                                    sx={{ mb: 1 }}
                                 />
                             )}
                         />
@@ -55,6 +57,7 @@ const TimelineDataPointForm: FC<TimelineDataPointFormProps> = ({
                                     variant="standard"
                                     error={meta.error && meta.touched}
                                     helperText={meta.touched && meta.error}
+                                    sx={{ mb: 1 }}
                                 />
                             )}
                         />
@@ -85,10 +88,23 @@ const TimelineDataPointForm: FC<TimelineDataPointFormProps> = ({
                             )}
                         />
                     </FormGroup>
-                    <LoadingButton type="submit" loading={isLoading}>
-                        save
-                    </LoadingButton>
-                    <Button onClick={onClose}>cancel</Button>
+                    <Box mt={3}>
+                        <LoadingButton
+                            type="submit"
+                            loading={isLoading}
+                            color="primary"
+                            variant="contained"
+                        >
+                            save
+                        </LoadingButton>
+                        <Button
+                            onClick={onClose}
+                            color="inherit"
+                            sx={{ ml: 2 }}
+                        >
+                            cancel
+                        </Button>
+                    </Box>
                 </form>
             )}
         />

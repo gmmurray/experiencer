@@ -1,0 +1,42 @@
+@import './mixins.scss';
+
+// variables
+$primary-rgb: rgb(64, 20, 245);
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+        Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.special-text {
+    text-shadow: 0 0 20px rgb(192 219 255 / 75%), 0 0 20px rgb(65 120 255 / 24%);
+}
+
+#app-header {
+    background-image: none;
+    box-shadow: none;
+}
+
+.special-button {
+    @include hover-effect($primary-rgb);
+
+    &-outlined {
+        border-color: $primary-rgb;
+    }
+}
+
+.chart-axis-text {
+    fill: white;
+}

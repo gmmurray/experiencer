@@ -22,7 +22,8 @@ const ChartTooltip = ({ payload, label }: any) => (
     <Paper elevation={2} sx={{ minWidth: 100, textAlign: 'left', p: 2 }}>
         <Typography variant="button">{label}</Typography>
         <Divider sx={{ my: 1 }} />
-        {payload![0].value} repositories
+        {payload![0].value}{' '}
+        {payload![0].value === 1 ? 'repository' : 'repositories'}
     </Paper>
 );
 

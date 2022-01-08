@@ -8,13 +8,13 @@ import {
 } from '@mui/material';
 import { Box, SxProps } from '@mui/system';
 
-import { useGetGithubUser } from '../../lib/queries/github';
-import { useRouter } from 'next/router';
 import { FC } from 'react';
 import GithubUserLanguages from './GithubUserLanguages';
 import GithubUserProfile from './GithubUserProfile';
+import { useGetGithubUser } from '../../lib/queries/github';
+import { useRouter } from 'next/router';
 
-const containerProps: SxProps = { textAlign: 'center', pt: 5 };
+const containerProps: SxProps = { textAlign: 'center', pt: 0 };
 
 type GithubUserProps = {
     username?: string;
@@ -69,13 +69,21 @@ const GithubUser: FC<GithubUserProps> = ({ username }) => {
                 </Link>
             </Stack>
             <Box my={2}>
-                <Typography variant="h4" sx={{ my: 2 }}>
+                <Typography
+                    variant="h4"
+                    sx={{ my: 2 }}
+                    className="special-text"
+                >
                     languages
                 </Typography>
                 <GithubUserLanguages data={data.languageCounts} />
             </Box>
             <Box my={2}>
-                <Typography variant="h4" sx={{ my: 2 }}>
+                <Typography
+                    variant="h4"
+                    sx={{ my: 2 }}
+                    className="special-text"
+                >
                     profile
                 </Typography>
                 <GithubUserProfile data={data.userData} />

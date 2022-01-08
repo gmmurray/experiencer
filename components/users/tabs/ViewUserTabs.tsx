@@ -102,13 +102,18 @@ const ViewUserTabs: FC<ViewUserTabsProps> = ({ settings, isCurrentUser }) => {
     }, [currentTab, visibleTabs]);
 
     return (
-        <Paper elevation={1} sx={{ p: 2, my: 2 }}>
-            <Typography variant="h6">{settings.displayName}</Typography>
+        <Box sx={{ p: 2, my: 2 }}>
+            <Typography variant="h4" className="special-text" textAlign="left">
+                {settings.displayName}
+            </Typography>
             <TabContext value={currentTab.toString()}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList
                         onChange={handleCurrentTabChange}
                         aria-label="user page tabs"
+                        textColor="inherit"
+                        variant="scrollable"
+                        allowScrollButtonsMobile
                     >
                         {(visibleTabs ?? []).map(tab => (
                             <Tab
@@ -128,7 +133,7 @@ const ViewUserTabs: FC<ViewUserTabsProps> = ({ settings, isCurrentUser }) => {
                     </TabPanel>
                 ))}
             </TabContext>
-        </Paper>
+        </Box>
     );
 };
 

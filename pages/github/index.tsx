@@ -1,5 +1,5 @@
+import { Box, Container, TextField, Typography } from '@mui/material';
 import { ChangeEvent, useCallback, useState } from 'react';
-import { Container, Paper, TextField, Typography } from '@mui/material';
 import { DEFAULT_PAGING_STATE, PagingState } from '../../lib/types/pagingState';
 
 import GithubUserList from '../../components/github/GithubUserList';
@@ -52,8 +52,10 @@ const Github = () => {
 
     return (
         <Container>
-            <Paper elevation={1} sx={{ minHeight: 400, p: 2, my: 2 }}>
-                <Typography variant="h2">find a github profile</Typography>
+            <Box sx={{ minHeight: 400, p: 2, my: 2 }}>
+                <Typography variant="h2" className="special-text">
+                    find a github profile
+                </Typography>
                 <TextField
                     variant="standard"
                     fullWidth
@@ -61,7 +63,7 @@ const Github = () => {
                     onChange={debouncedSearch}
                 />
                 {renderResults()}
-            </Paper>
+            </Box>
         </Container>
     );
 };
