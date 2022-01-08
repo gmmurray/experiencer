@@ -92,7 +92,10 @@ const GithubUserProfile: FC<GithubUserProfileProps> = ({ data }) => {
                         <Grid key={field} item xs={gridSize}>
                             <Stack>
                                 <Box>
-                                    <Typography variant="overline">
+                                    <Typography
+                                        variant="overline"
+                                        color="text.secondary"
+                                    >
                                         {title}
                                     </Typography>
                                     <Typography variant="body2">

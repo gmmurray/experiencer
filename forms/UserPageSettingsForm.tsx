@@ -1,5 +1,6 @@
 import {
     Checkbox,
+    Divider,
     FormControlLabel,
     FormGroup,
     FormHelperText,
@@ -96,6 +97,7 @@ const UserPageSettingsForm: FC<UserPageSettingsFormProps> = ({
                             )}
                         />
                     </FormGroup>
+                    <Divider sx={{ my: 2 }} />
                     <FormGroup>
                         <Field
                             name="displayName"
@@ -104,6 +106,7 @@ const UserPageSettingsForm: FC<UserPageSettingsFormProps> = ({
                                     {...input}
                                     label="display name"
                                     variant="standard"
+                                    sx={{ mb: 1 }}
                                 />
                             )}
                         />
@@ -118,8 +121,15 @@ const UserPageSettingsForm: FC<UserPageSettingsFormProps> = ({
                             )}
                         />
                     </FormGroup>
-                    <LoadingButton type="submit" loading={isLoading}>
-                        submit
+                    <LoadingButton
+                        type="submit"
+                        loading={isLoading}
+                        className="special-button special-button-outlined"
+                        color="inherit"
+                        variant="outlined"
+                        sx={{ mt: 2 }}
+                    >
+                        save
                     </LoadingButton>
                 </form>
             )}

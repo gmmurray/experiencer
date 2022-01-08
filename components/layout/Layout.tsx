@@ -4,6 +4,7 @@ import {
     Button,
     Container,
     Link,
+    Theme,
     Toolbar,
     Typography,
 } from '@mui/material';
@@ -11,6 +12,7 @@ import { FC, Fragment, useEffect, useState } from 'react';
 import { RouteMapRoute, routeMap } from '../../config/routes';
 import { signIn, signOut, useSession } from 'next-auth/react';
 
+import { Box } from '@mui/system';
 import CenteredCircularProgress from '../shared/CenteredCircularProgress';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
@@ -37,36 +39,24 @@ const Layout: FC = ({ children }) => {
 
     return (
         <Fragment>
-            <AppBar position="static">
+            <AppBar
+                id="app-header"
+                position="static"
+                sx={{
+                    backgroundColor: 'background.default',
+                    backgroundImage: 'background.default',
+                }}
+            >
                 <Container>
                     <Toolbar disableGutters>
-                        {currentRoute.isDefault ? (
-                            <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                                {currentRoute.title}
-                            </Typography>
-                        ) : (
-                            <Breadcrumbs>
-                                {(currentRoute.breadcrumbs ?? []).map(r => (
-                                    <NextLink
-                                        key={r.pathname}
-                                        href={r.pathname}
-                                        passHref
-                                    >
-                                        <Link color="inherit" underline="hover">
-                                            {r.title}
-                                        </Link>
-                                    </NextLink>
-                                ))}
-                                <Typography color="text.primary">
-                                    {currentRoute.title}
-                                </Typography>
-                            </Breadcrumbs>
-                        )}
+                        <Typography variant="h4">experiencer</Typography>
                         {!sessionIsLoading && !session && (
                             <Button
                                 onClick={() => signIn()}
                                 color="inherit"
                                 sx={{ ml: 'auto' }}
+                                variant="outlined"
+                                className="special-button special-button-outlined"
                             >
                                 login
                             </Button>
@@ -75,7 +65,11 @@ const Layout: FC = ({ children }) => {
                             <Button
                                 onClick={() => signOut()}
                                 color="inherit"
-                                sx={{ ml: 'auto' }}
+                                sx={{
+                                    ml: 'auto',
+                                }}
+                                variant="outlined"
+                                className="special-button special-button-outlined"
                             >
                                 logout
                             </Button>
@@ -83,6 +77,32 @@ const Layout: FC = ({ children }) => {
                     </Toolbar>
                 </Container>
             </AppBar>
+            <Container>
+                {currentRoute.isDefault ? (
+                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                        {currentRoute.title}
+                    </Typography>
+                ) : (
+                    <Breadcrumbs>
+                        {(currentRoute.breadcrumbs ?? []).map(r => (
+                            <NextLink
+                                key={r.pathname}
+                                href={r.pathname}
+                                passHref
+                            >
+                                <Link underline="hover" color="text.secondary">
+                                    <Typography variant="subtitle1">
+                                        {r.title}
+                                    </Typography>
+                                </Link>
+                            </NextLink>
+                        ))}
+                        <Typography color="text.primary" variant="subtitle1">
+                            {currentRoute.title}
+                        </Typography>
+                    </Breadcrumbs>
+                )}
+            </Container>
             {renderChildren()}
         </Fragment>
     );

@@ -140,12 +140,16 @@ const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
                     <Button
                         startIcon={<AddIcon />}
                         onClick={() => setIsModalOpen(true)}
+                        className="special-button special-button-outlined"
+                        variant="outlined"
                     >
                         add item
                     </Button>
                     <Button
                         onClick={() => setIsEditMode(false)}
                         sx={{ ml: 'auto' }}
+                        className="special-button special-button-outlined"
+                        variant="outlined"
                     >
                         stop editing
                     </Button>
@@ -156,7 +160,13 @@ const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
                     onSelect={handleSelectItem}
                     isLoading={settingsAreLoading || updateMutation.isLoading}
                 />
-                <Dialog open={isModalOpen} onClose={handleCloseDialog}>
+                <Dialog
+                    open={isModalOpen}
+                    onClose={handleCloseDialog}
+                    PaperProps={{
+                        elevation: 1,
+                    }}
+                >
                     <DialogTitle>add new timeline item</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
@@ -179,12 +189,23 @@ const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
 
     if (!timelineData || !(timelineData.dataPoints.length > 0)) {
         return (
-            <div>
+            <Fragment>
                 {isCurrentUser && (
-                    <Button onClick={() => setIsEditMode(true)}>edit</Button>
+                    <Box display="flex">
+                        <Button
+                            onClick={() => setIsEditMode(true)}
+                            sx={{ ml: 'auto' }}
+                            className="special-button special-button-outlined"
+                            variant="outlined"
+                        >
+                            edit
+                        </Button>
+                    </Box>
                 )}
-                no timeline data
-            </div>
+                <Typography variant="h5" mt={5}>
+                    no timeline data
+                </Typography>
+            </Fragment>
         );
     }
 
@@ -195,6 +216,9 @@ const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
                     <Button
                         onClick={() => setIsEditMode(true)}
                         sx={{ ml: 'auto' }}
+                        color="inherit"
+                        className="special-button special-button-outlined"
+                        variant="outlined"
                     >
                         edit
                     </Button>

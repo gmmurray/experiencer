@@ -143,12 +143,16 @@ const ExperiencesTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
                     <Button
                         startIcon={<AddIcon />}
                         onClick={() => setIsModalOpen(true)}
+                        className="special-button special-button-outlined"
+                        variant="outlined"
                     >
                         add item
                     </Button>
                     <Button
                         onClick={() => setIsEditMode(false)}
                         sx={{ ml: 'auto' }}
+                        className="special-button special-button-outlined"
+                        variant="outlined"
                     >
                         stop editing
                     </Button>
@@ -159,7 +163,13 @@ const ExperiencesTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
                     onSelect={handleSelectItem}
                     isLoading={settingsAreLoading || updateMutation.isLoading}
                 />
-                <Dialog open={isModalOpen} onClose={handleCloseDialog}>
+                <Dialog
+                    open={isModalOpen}
+                    onClose={handleCloseDialog}
+                    PaperProps={{
+                        elevation: 1,
+                    }}
+                >
                     <DialogTitle>add new experience</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
@@ -194,10 +204,12 @@ const ExperiencesTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
     return (
         <Fragment>
             {isCurrentUser && (
-                <Box display="flex">
+                <Box display="flex" pb={3}>
                     <Button
                         onClick={() => setIsEditMode(true)}
                         sx={{ ml: 'auto' }}
+                        className="special-button special-button-outlined"
+                        variant="outlined"
                     >
                         edit
                     </Button>
@@ -233,6 +245,8 @@ const ExperiencesTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
                                     display: 'flex',
                                     justifyContent: 'space-between',
                                     flexDirection: 'column',
+                                    backgroundColor: 'background.default',
+                                    borderColor: 'text.primary',
                                 }}
                                 variant="outlined"
                             >

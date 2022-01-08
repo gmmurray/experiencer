@@ -4,14 +4,13 @@ import {
     showSuccessSnackbar,
 } from '../../../config/notistack';
 
-import { Paper } from '@mui/material';
+import { Box } from '@mui/material';
+import { GithubSession } from '../../../lib/types/GithubSession';
 import { UserPageSettings } from '../../../entities/UserPageSettings';
 import UserPageSettingsForm from '../../../forms/UserPageSettingsForm';
 import { useCreateUserPageSettings } from '../../../lib/queries/userPageSettings';
 import { useSession } from 'next-auth/react';
 import { useSnackbar } from 'notistack';
-import { Session } from 'next-auth';
-import { GithubSession } from '../../../lib/types/GithubSession';
 
 const CreateUserPageSettingsPanel = () => {
     const { enqueueSnackbar } = useSnackbar();
@@ -48,12 +47,12 @@ const CreateUserPageSettingsPanel = () => {
         return null;
     }
     return (
-        <Paper elevation={1} sx={{ p: 2, my: 2 }}>
+        <Box sx={{ p: 2, my: 2 }}>
             <UserPageSettingsForm
                 isLoading={createMutation.isLoading}
                 onSubmit={handleCreate}
             />
-        </Paper>
+        </Box>
     );
 };
 
