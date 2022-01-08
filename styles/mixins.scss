@@ -2,7 +2,7 @@
     transition: all 0.4s ease;
     &:hover {
         transition: all 0.4s ease;
-        box-shadow: 0 0 16px 0 $rgb-color;
-        background-color: rgba($rgb-color, 0.33);
+        box-shadow: 0 0 16px 0 $rgb-color !important;
+        background-color: rgba($rgb-color, 0.33) !important;
     }
 }

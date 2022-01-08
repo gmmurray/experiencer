@@ -33,7 +33,7 @@ a {
     @include hover-effect($primary-rgb);
 
     &-outlined {
-        border-color: $primary-rgb;
+        border-color: $primary-rgb !important;
     }
 }
 
