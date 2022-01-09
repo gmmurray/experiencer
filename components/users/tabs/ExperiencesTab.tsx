@@ -34,6 +34,7 @@ import AddIcon from '@mui/icons-material/Add';
 import ExperienceDataPointForm from '../../../forms/ExperienceDataPointForm';
 import ExperienceDataPointList from './ExperienceDataPointList';
 import { UserTabComponent } from './ViewUserTabs';
+import { addhttp } from '../../../util/addHttp';
 import { isNullOrEmptyString } from '../../../forms/validation';
 import { useSnackbar } from 'notistack';
 
@@ -264,8 +265,9 @@ const ExperiencesTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
                                             <Button
                                                 key={i}
                                                 size="small"
-                                                href={a.url}
+                                                href={addhttp(a.url)}
                                                 rel="noopener noreferrer"
+                                                target="_blank"
                                             >
                                                 {a.text}
                                             </Button>

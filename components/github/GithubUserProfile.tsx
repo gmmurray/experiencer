@@ -3,6 +3,7 @@ import { Grid, GridSize, Link, Stack, Typography } from '@mui/material';
 
 import { Box } from '@mui/system';
 import { UserProfileResponseDataType } from '../../lib/types/octokitTypes';
+import { addhttp } from '../../util/addHttp';
 
 type ProfileField = {
     field: keyof UserProfileResponseDataType;
@@ -37,7 +38,7 @@ const profileFields: ProfileField[] = [
         title: 'blog',
         gridSize: 6,
         renderValue: value => (
-            <Link href={value} target="_blank" rel="noopener">
+            <Link href={addhttp(value)} target="_blank" rel="noopener">
                 {value}
             </Link>
         ),

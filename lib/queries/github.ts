@@ -36,7 +36,7 @@ export const useSearchGithubUsers = (
         },
     );
 
-type GithubUserResponseType = {
+export type GithubUserResponseType = {
     userData: UserProfileResponseDataType;
     languageCounts: { [language: string]: number };
 };
