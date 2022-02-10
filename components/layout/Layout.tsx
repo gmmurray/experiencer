@@ -53,6 +53,8 @@ const Layout: FC = ({ children }) => {
         return children;
     };
 
+    if (pathname === '/') return <Fragment>{children}</Fragment>;
+
     return (
         <Fragment>
             <AppBar

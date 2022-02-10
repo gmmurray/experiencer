@@ -55,3 +55,26 @@ a {
     background-color: rgba(0, 0, 0, 0.4);
     box-shadow: 0 26px 42px rgba(0, 0, 0, 0.5);
 }
+
+.landing-page-pane {
+    background-color: black;
+    &--first {
+        background-image: none;
+    }
+
+    &--second {
+        overflow: hidden;
+        background-image: url(/logo.png);
+        background-size: cover;
+        .content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            background: none;
+            box-shadow: none;
+            backdrop-filter: blur(55px);
+        }
+    }
+}

@@ -144,6 +144,7 @@ const ExperiencesTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
                     <Button
                         startIcon={<AddIcon />}
                         onClick={() => setIsModalOpen(true)}
+                        color="inherit"
                         className="special-button special-button-outlined"
                         variant="outlined"
                     >
@@ -152,6 +153,7 @@ const ExperiencesTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
                     <Button
                         onClick={() => setIsEditMode(false)}
                         sx={{ ml: 'auto' }}
+                        color="inherit"
                         className="special-button special-button-outlined"
                         variant="outlined"
                     >
@@ -209,6 +211,7 @@ const ExperiencesTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
                     <Button
                         onClick={() => setIsEditMode(true)}
                         sx={{ ml: 'auto' }}
+                        color="inherit"
                         className="special-button special-button-outlined"
                         variant="outlined"
                     >
@@ -246,7 +249,7 @@ const ExperiencesTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
                                     display: 'flex',
                                     justifyContent: 'space-between',
                                     flexDirection: 'column',
-                                    backgroundColor: 'background.default',
+                                    background: 'none',
                                     borderColor: 'text.primary',
                                 }}
                                 variant="outlined"
