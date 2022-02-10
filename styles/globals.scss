@@ -2,6 +2,8 @@
 
 // variables
 $primary-rgb: rgb(64, 20, 245);
+$primary-dark: #291384;
+$dark-background-color: #121212;
 
 html,
 body {
@@ -39,4 +41,17 @@ a {
 
 .chart-axis-text {
     fill: white;
+}
+
+.theme-body {
+    background: linear-gradient(
+        to right,
+        $dark-background-color,
+        $primary-dark
+    );
+}
+
+.theme-paper {
+    background-color: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 26px 42px rgba(0, 0, 0, 0.5);
 }
