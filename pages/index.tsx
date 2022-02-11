@@ -8,15 +8,15 @@ import {
     Stack,
     Typography,
 } from '@mui/material';
+import { Fragment, useCallback } from 'react';
 import { signIn, signOut } from 'next-auth/react';
 
-import { Fragment, useCallback } from 'react';
+import CenteredCircularProgress from '../components/shared/CenteredCircularProgress';
+import Image from 'next/image';
+import { Masonry } from '@mui/lab';
 import NextLink from 'next/link';
 import type { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
-import { Masonry } from '@mui/lab';
-import Image from 'next/image';
-import CenteredCircularProgress from '../components/shared/CenteredCircularProgress';
 
 const Home: NextPage = () => {
     const { data: session, status: sessionStatus } = useSession();
@@ -132,7 +132,7 @@ const Home: NextPage = () => {
                 alignItems="center"
                 justifyContent="center"
                 className="landing-page-pane landing-page-pane--first"
-                sx={{ height: { xs: '50vh', sm: '100vh ' } }}
+                sx={{ p: 2, height: { xs: '50vh', sm: '100vh ' } }}
             >
                 <Image
                     src="/logo.png"

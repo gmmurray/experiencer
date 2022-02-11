@@ -52,19 +52,19 @@ a {
 }
 
 .theme-paper {
-    background-color: rgba(0, 0, 0, 0.4);
-    box-shadow: 0 26px 42px rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    box-shadow: 0 26px 42px rgba(0, 0, 0, 0.5) !important;
 }
 
 .landing-page-pane {
-    background-color: black;
+    background-color: black !important;
     &--first {
-        background-image: none;
+        background-image: none !important;
     }
 
     &--second {
         overflow: hidden;
-        background-image: url(/logo.png);
+        background-image: url(/logo.png) !important;
         background-size: cover;
         .content {
             display: flex;
@@ -72,8 +72,8 @@ a {
             justify-content: center;
             height: 100%;
             width: 100%;
-            background: none;
-            box-shadow: none;
+            background: none !important;
+            box-shadow: none !important;
             backdrop-filter: blur(55px);
         }
     }
