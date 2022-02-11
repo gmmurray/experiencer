@@ -102,7 +102,7 @@ const ViewUserTabs: FC<ViewUserTabsProps> = ({ settings, isCurrentUser }) => {
     }, [currentTab, visibleTabs]);
 
     return (
-        <Box sx={{ p: 2, my: 2 }}>
+        <Paper className="theme-paper" sx={{ p: 2, my: 2 }}>
             <Typography variant="h4" className="special-text" textAlign="left">
                 {settings.displayName}
             </Typography>
@@ -133,7 +133,7 @@ const ViewUserTabs: FC<ViewUserTabsProps> = ({ settings, isCurrentUser }) => {
                     </TabPanel>
                 ))}
             </TabContext>
-        </Box>
+        </Paper>
     );
 };
 

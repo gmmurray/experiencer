@@ -110,16 +110,6 @@ const UserPageSettingsForm: FC<UserPageSettingsFormProps> = ({
                                 />
                             )}
                         />
-                        <Field
-                            name="avatarUrl"
-                            render={({ input }) => (
-                                <TextField
-                                    {...input}
-                                    label="avatar url"
-                                    variant="standard"
-                                />
-                            )}
-                        />
                     </FormGroup>
                     <LoadingButton
                         type="submit"

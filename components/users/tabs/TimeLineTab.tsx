@@ -140,6 +140,7 @@ const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
                     <Button
                         startIcon={<AddIcon />}
                         onClick={() => setIsModalOpen(true)}
+                        color="inherit"
                         className="special-button special-button-outlined"
                         variant="outlined"
                     >
@@ -148,6 +149,7 @@ const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
                     <Button
                         onClick={() => setIsEditMode(false)}
                         sx={{ ml: 'auto' }}
+                        color="inherit"
                         className="special-button special-button-outlined"
                         variant="outlined"
                     >
@@ -195,6 +197,7 @@ const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
                         <Button
                             onClick={() => setIsEditMode(true)}
                             sx={{ ml: 'auto' }}
+                            color="inherit"
                             className="special-button special-button-outlined"
                             variant="outlined"
                         >

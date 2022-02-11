@@ -4,18 +4,19 @@ import {
     Button,
     Container,
     Link,
-    Theme,
     Toolbar,
     Typography,
+    Box,
 } from '@mui/material';
 import { FC, Fragment, useEffect, useState } from 'react';
 import { RouteMapRoute, routeMap } from '../../config/routes';
 import { signIn, signOut, useSession } from 'next-auth/react';
 
-import { Box } from '@mui/system';
 import CenteredCircularProgress from '../shared/CenteredCircularProgress';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
+
+const appHeaderId = 'app-header';
 
 const Layout: FC = ({ children }) => {
     const { pathname } = useRouter();
@@ -25,22 +26,39 @@ const Layout: FC = ({ children }) => {
     );
     const sessionIsLoading = status === 'loading';
 
+    const [appbarHeight, setAppbarHeight] = useState(0);
+
     useEffect(() => {
         const route = routeMap[pathname] ?? routeMap.default;
         setCurrentRoute(route);
     }, [pathname]);
 
+    const appbarElement =
+        typeof window !== 'undefined'
+            ? document.getElementById(appHeaderId)
+            : null;
+
+    useEffect(() => {
+        setAppbarHeight(appbarElement?.clientHeight ?? 0);
+    }, [appbarElement]);
+
     const renderChildren = () => {
         if (sessionIsLoading) {
-            return <CenteredCircularProgress minHeight="calc(100vh - 64px)" />;
+            return (
+                <CenteredCircularProgress
+                    minHeight={`calc(100vh - ${appbarHeight}px)`}
+                />
+            );
         }
         return children;
     };
 
+    if (pathname === '/') return <Fragment>{children}</Fragment>;
+
     return (
         <Fragment>
             <AppBar
-                id="app-header"
+                id={appHeaderId}
                 position="static"
                 sx={{
                     backgroundColor: 'background.default',
@@ -77,33 +95,41 @@ const Layout: FC = ({ children }) => {
                     </Toolbar>
                 </Container>
             </AppBar>
-            <Container>
-                {currentRoute.isDefault ? (
-                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                        {currentRoute.title}
-                    </Typography>
-                ) : (
-                    <Breadcrumbs>
-                        {(currentRoute.breadcrumbs ?? []).map(r => (
-                            <NextLink
-                                key={r.pathname}
-                                href={r.pathname}
-                                passHref
-                            >
-                                <Link underline="hover" color="text.secondary">
-                                    <Typography variant="subtitle1">
-                                        {r.title}
-                                    </Typography>
-                                </Link>
-                            </NextLink>
-                        ))}
-                        <Typography color="text.primary" variant="subtitle1">
+            <Box sx={{ minHeight: `calc(100vh - ${appbarHeight}px)` }}>
+                <Container sx={{ my: 1 }}>
+                    {currentRoute.isDefault ? (
+                        <Typography variant="h6" sx={{ flexGrow: 1 }}>
                             {currentRoute.title}
                         </Typography>
-                    </Breadcrumbs>
-                )}
-            </Container>
-            {renderChildren()}
+                    ) : (
+                        <Breadcrumbs>
+                            {(currentRoute.breadcrumbs ?? []).map(r => (
+                                <NextLink
+                                    key={r.pathname}
+                                    href={r.pathname}
+                                    passHref
+                                >
+                                    <Link
+                                        underline="hover"
+                                        color="text.secondary"
+                                    >
+                                        <Typography variant="subtitle1">
+                                            {r.title}
+                                        </Typography>
+                                    </Link>
+                                </NextLink>
+                            ))}
+                            <Typography
+                                color="text.primary"
+                                variant="subtitle1"
+                            >
+                                {currentRoute.title}
+                            </Typography>
+                        </Breadcrumbs>
+                    )}
+                </Container>
+                {renderChildren()}
+            </Box>
         </Fragment>
     );
 };
