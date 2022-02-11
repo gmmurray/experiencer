@@ -2,13 +2,15 @@ import {
     Box,
     Button,
     Container,
+    Divider,
+    Fade,
     Grid,
     Link,
     Paper,
     Stack,
     Typography,
 } from '@mui/material';
-import { Fragment, useCallback } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import { signIn, signOut } from 'next-auth/react';
 
 import CenteredCircularProgress from '../components/shared/CenteredCircularProgress';
@@ -18,6 +20,8 @@ import NextLink from 'next/link';
 import type { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
 
+const youMatterWords = ['time', 'experience', 'effort', 'work'];
+
 const Home: NextPage = () => {
     const { data: session, status: sessionStatus } = useSession();
     const sessionIsLoading = sessionStatus === 'loading';
@@ -25,6 +29,31 @@ const Home: NextPage = () => {
 
     const handleLoginClick = useCallback(() => signIn('github'), []);
     const handleLogoutClick = useCallback(() => signOut(), []);
+
+    const [youMatterTextClass, setYouMatterClass] = useState('');
+    const [youMatterTextIndex, setYouMatterTextIndex] = useState(0);
+
+    useEffect(() => {
+        const timeout = setInterval(() => {
+            setYouMatterClass('rotate-in');
+            setTimeout(() => {
+                setYouMatterClass('rotated');
+            }, 1000);
+            setTimeout(() => {
+                setYouMatterClass('rotate-out');
+            }, 2000);
+
+            setTimeout(() => {
+                if (youMatterTextIndex === youMatterWords.length - 1) {
+                    setYouMatterTextIndex(0);
+                } else {
+                    setYouMatterTextIndex(state => state + 1);
+                }
+            }, 500);
+        }, 7000);
+
+        return () => clearInterval(timeout);
+    }, [youMatterTextClass, youMatterTextIndex]);
 
     const renderSecondPaneContents = useCallback(() => {
         if (sessionIsLoading) {
@@ -140,6 +169,17 @@ const Home: NextPage = () => {
                     width="534"
                     alt="experiencer logo"
                 />
+                <Typography variant="h2">your</Typography>
+                <Typography
+                    variant="h2"
+                    className={`special-text--emphasized you-matter-text ${youMatterTextClass}`}
+                >
+                    {youMatterWords[youMatterTextIndex]}
+                </Typography>
+                <Divider
+                    sx={{ minWidth: '15rem', border: '0.125rem solid white' }}
+                />
+                <Typography variant="h2">matters</Typography>
             </Grid>
             <Grid
                 container
