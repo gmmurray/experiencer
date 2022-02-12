@@ -56,7 +56,7 @@ const nextAuth = NextAuth({
         },
     },
     theme: {
-        logo: `${process.env.NEXT_PUBLIC_BASE_URL}favicon.ico`,
+        logo: `${process.env.NEXT_PUBLIC_BASE_URL}e_icon.png`,
         colorScheme: 'dark',
     },
 });

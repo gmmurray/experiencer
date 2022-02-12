@@ -1,18 +1,19 @@
 import {
     AppBar,
+    Box,
     Breadcrumbs,
     Button,
     Container,
     Link,
     Toolbar,
     Typography,
-    Box,
 } from '@mui/material';
 import { FC, Fragment, useEffect, useState } from 'react';
 import { RouteMapRoute, routeMap } from '../../config/routes';
 import { signIn, signOut, useSession } from 'next-auth/react';
 
 import CenteredCircularProgress from '../shared/CenteredCircularProgress';
+import Image from 'next/image';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -67,7 +68,12 @@ const Layout: FC = ({ children }) => {
             >
                 <Container>
                     <Toolbar disableGutters>
-                        <Typography variant="h4">experiencer</Typography>
+                        <Image
+                            src="/logo.png"
+                            height={40}
+                            width={106}
+                            alt="experiencer logo"
+                        />
                         {!sessionIsLoading && !session && (
                             <Button
                                 onClick={() => signIn()}
