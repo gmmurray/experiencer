@@ -20,7 +20,7 @@ import NextLink from 'next/link';
 import type { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
 
-const youMatterWords = ['time', 'experience', 'effort', 'work'];
+const youMatterWords = ['time', 'experience', 'effort', 'work', 'journey'];
 
 const Home: NextPage = () => {
     const { data: session, status: sessionStatus } = useSession();
