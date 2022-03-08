@@ -109,6 +109,10 @@ const ExperienceDataPointList: FC<ExperienceDataPointListProps> = ({
                                                                 )}
                                                                 rel="noopener noreferrer"
                                                                 target="_blank"
+                                                                sx={{
+                                                                    wordBreak:
+                                                                        'break-word',
+                                                                }}
                                                             >
                                                                 {d.firstLinkTo}
                                                             </Button>
@@ -142,6 +146,10 @@ const ExperienceDataPointList: FC<ExperienceDataPointListProps> = ({
                                                                 )}
                                                                 rel="noopener noreferrer"
                                                                 target="_blank"
+                                                                sx={{
+                                                                    wordBreak:
+                                                                        'break-word',
+                                                                }}
                                                             >
                                                                 {d.secondLinkTo}
                                                             </Button>
