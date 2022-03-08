@@ -10,10 +10,11 @@ import {
     DialogTitle,
     Grid,
     Typography,
+    useMediaQuery,
+    useTheme,
 } from '@mui/material';
 import {
     ExperiencesDataPoint,
-    cleanExperiencesDataPoints,
     modifyExperiencesDataPoints,
 } from '../../../entities/ExperiencesTabSettings';
 import { FC, Fragment, useCallback, useEffect, useState } from 'react';
@@ -39,6 +40,8 @@ import { isNullOrEmptyString } from '../../../forms/validation';
 import { useSnackbar } from 'notistack';
 
 const ExperiencesTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const { enqueueSnackbar } = useSnackbar();
     const [isEditMode, setIsEditMode] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -172,6 +175,7 @@ const ExperiencesTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
                     PaperProps={{
                         elevation: 1,
                     }}
+                    fullScreen={isMobile}
                 >
                     <DialogTitle>add new experience</DialogTitle>
                     <DialogContent>

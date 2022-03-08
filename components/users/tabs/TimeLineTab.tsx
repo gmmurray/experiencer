@@ -5,6 +5,8 @@ import {
     DialogContentText,
     DialogTitle,
     Typography,
+    useMediaQuery,
+    useTheme,
 } from '@mui/material';
 import { FC, Fragment, useCallback, useEffect, useState } from 'react';
 import {
@@ -41,6 +43,8 @@ import { UserTabComponent } from './ViewUserTabs';
 import { useSnackbar } from 'notistack';
 
 const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const { enqueueSnackbar } = useSnackbar();
     const [isEditMode, setIsEditMode] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -168,6 +172,7 @@ const TimeLineTab: FC<UserTabComponent> = ({ userId, isCurrentUser }) => {
                     PaperProps={{
                         elevation: 1,
                     }}
+                    fullScreen={isMobile}
                 >
                     <DialogTitle>add new timeline item</DialogTitle>
                     <DialogContent>
